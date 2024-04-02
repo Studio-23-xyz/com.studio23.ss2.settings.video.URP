@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.cysharp.unitask": "2.5.4",
-    "com.studio23.ss2.settings.video": "1.0.2",
+    "com.studio23.ss2.settings.video": "file:C:/Users/BS805/Documents/com.studio23.ss2.settings.video/Assets/Packages/com.studio23.ss2.settings.video",
     "com.studio23.ss2.upmassistant": "1.0.3",
     "com.unity.collab-proxy": "2.3.1",
     "com.unity.ide.rider": "3.0.26",

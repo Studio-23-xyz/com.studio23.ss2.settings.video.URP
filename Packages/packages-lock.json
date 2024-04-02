@@ -8,13 +8,12 @@
       "url": "https://package.openupm.com"
     },
     "com.studio23.ss2.settings.video": {
-      "version": "1.0.2",
+      "version": "file:C:/Users/BS805/Documents/com.studio23.ss2.settings.video/Assets/Packages/com.studio23.ss2.settings.video",
       "depth": 0,
-      "source": "registry",
+      "source": "local",
       "dependencies": {
         "com.unity.nuget.newtonsoft-json": "3.2.1"
-      },
-      "url": "https://package.openupm.com"
+      }
     },
     "com.studio23.ss2.upmassistant": {
       "version": "1.0.3",
