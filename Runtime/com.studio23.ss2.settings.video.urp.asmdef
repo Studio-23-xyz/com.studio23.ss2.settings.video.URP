@@ -1,0 +1,18 @@
+{
+    "name": "com.studio23.ss2.settings.video.urp",
+    "rootNamespace": "",
+    "references": [
+        "GUID:e3d32810cbfa85c4eac3db3dcf20bd97",
+        "GUID:15fc0a57446b3144c949da3e2b9737a9",
+        "GUID:df380645f10b7bc4b97d4f5eb6303d95"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
