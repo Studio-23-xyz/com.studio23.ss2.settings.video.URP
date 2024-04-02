@@ -11,12 +11,11 @@ namespace Studio23.SS2.Settings.Video.URP.Data
 {
     public class URPGraphicsConfiguration : GraphicsConfigurationBase
     {
+        private UniversalRenderPipelineAsset _pipelineAsset;
         private Bloom _bloom;
         private ColorAdjustments _colorAdjustments;
-
         private readonly string _ambientOcclusionRfString = "SSAO";
         private ScriptableRendererFeature _ambientOcclusion;
-        public bool IsSSAOActiveAtFirst;
 
 
         public override void Initialize(Volume currentVolume)
@@ -24,36 +23,53 @@ namespace Studio23.SS2.Settings.Video.URP.Data
             CurrentVolumeProfile = currentVolume.profile;
             CurrentVolumeProfile.TryGet(typeof(Bloom), out _bloom);
             CurrentVolumeProfile.TryGet(typeof(ColorAdjustments), out _colorAdjustments);
-            UpdateAmbientOcclusionRenderFeature();
+            UpdatePipelineRenderAsset();
         }
 
         public override void SetBloomState(bool state)
         {
-            if(!_bloom) return;
+            if(_bloom == null) return;
             _bloom.active = state;
         }
 
         public override void SetAmbientOcclusionState(bool state)
         {
-            if (!_ambientOcclusion) return;
+            if (_ambientOcclusion == null) return;
             _ambientOcclusion.SetActive(state);
         }
 
         public override void SetBrightness(float brightnessValue)
         {
-            if (!_colorAdjustments) return;
+            if (_colorAdjustments == null) return;
             _colorAdjustments.postExposure.value = brightnessValue;
         }
 
-        public override void UpdateAmbientOcclusionRenderFeature()
+        public override void SetRenderScale(float scaleValue)
         {
-            var renderAsset = (GraphicsSettings.currentRenderPipeline as UniversalRenderPipelineAsset);
-            if (renderAsset == null)
-            {
-                Debug.Log("No render asset found");
-                return;
-            }
-            var renderer = renderAsset.GetRenderer(0);
+            if(_pipelineAsset == null) return;
+            _pipelineAsset.renderScale = scaleValue;
+        }
+
+        public override void UpdatePipelineRenderAsset()
+        {
+            bool isAmbientOcclusion = false;
+            float renderScaleValue = 0.5f;
+
+            if (_pipelineAsset != null)
+                renderScaleValue = _pipelineAsset.renderScale;
+            if (_ambientOcclusion != null)
+                isAmbientOcclusion = _ambientOcclusion.isActive;
+
+            _pipelineAsset = (GraphicsSettings.currentRenderPipeline as UniversalRenderPipelineAsset);
+            UpdateAmbientOcclusion(isAmbientOcclusion);
+            UpdateRenderScale(renderScaleValue);
+        }
+
+        private void UpdateAmbientOcclusion(bool state)
+        {
+            if(_pipelineAsset == null) return;
+
+            var renderer = _pipelineAsset.GetRenderer(0);
             var property = typeof(ScriptableRenderer).GetProperty("rendererFeatures", BindingFlags.NonPublic | BindingFlags.Instance);
             if (property == null)
             {
@@ -71,14 +87,17 @@ namespace Studio23.SS2.Settings.Video.URP.Data
             {
                 if (rf.name.Equals(_ambientOcclusionRfString))
                 {
-                    bool isEnabled = IsSSAOActiveAtFirst;
-                    if (_ambientOcclusion != null)
-                        isEnabled = _ambientOcclusion.isActive;
                     _ambientOcclusion = rf;
-                    SetAmbientOcclusionState(isEnabled);
+                    SetAmbientOcclusionState(state);
                     break;
                 }
             }
+        }
+
+        private void UpdateRenderScale(float scaleValue)
+        {
+            if (_pipelineAsset == null) return;
+            _pipelineAsset.renderScale = scaleValue;
         }
     }
 }

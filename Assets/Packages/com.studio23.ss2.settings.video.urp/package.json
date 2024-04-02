@@ -18,7 +18,7 @@
     }
   ],
   "dependencies": {
-    "com.studio23.ss2.settings.video": "1.0.2",
+    "com.studio23.ss2.settings.video": "1.0.3",
 	"com.unity.render-pipelines.universal" : "14.0.9"
   },
   "samples": [
