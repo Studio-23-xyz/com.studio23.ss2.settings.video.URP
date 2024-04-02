@@ -1,6 +1,6 @@
 {
   "name": "com.studio23.ss2.settings.video.urp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "displayName": "Video Setting - URP",
   "description": "This is an video setting for URP. Used for in-game display and graphics settings.",
   "unity": "2022.3",
