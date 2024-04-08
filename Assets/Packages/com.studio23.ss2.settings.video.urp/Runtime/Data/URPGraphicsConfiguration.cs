@@ -20,10 +20,11 @@ namespace Studio23.SS2.Settings.Video.URP.Data
 
         public override void Initialize(Volume currentVolume)
         {
+            _pipelineAsset = (GraphicsSettings.currentRenderPipeline as UniversalRenderPipelineAsset);
             CurrentVolumeProfile = currentVolume.profile;
             CurrentVolumeProfile.TryGet(typeof(Bloom), out _bloom);
             CurrentVolumeProfile.TryGet(typeof(ColorAdjustments), out _colorAdjustments);
-            UpdatePipelineRenderAsset();
+            _ambientOcclusion = GetAmbientOcclusion();
         }
 
         public override void SetBloomState(bool state)
@@ -52,52 +53,46 @@ namespace Studio23.SS2.Settings.Video.URP.Data
 
         public override void UpdatePipelineRenderAsset()
         {
-            bool isAmbientOcclusion = false;
-            float renderScaleValue = 0.5f;
-
-            if (_pipelineAsset != null)
-                renderScaleValue = _pipelineAsset.renderScale;
-            if (_ambientOcclusion != null)
-                isAmbientOcclusion = _ambientOcclusion.isActive;
+            float renderScaleValue = _pipelineAsset.renderScale;
+            bool isAmbientOcclusion = _ambientOcclusion.isActive;
 
             _pipelineAsset = (GraphicsSettings.currentRenderPipeline as UniversalRenderPipelineAsset);
             UpdateAmbientOcclusion(isAmbientOcclusion);
-            UpdateRenderScale(renderScaleValue);
+            SetRenderScale(renderScaleValue);
         }
 
         private void UpdateAmbientOcclusion(bool state)
         {
-            if(_pipelineAsset == null) return;
+            _ambientOcclusion = GetAmbientOcclusion();
+            SetAmbientOcclusionState(state);
+        }
 
+        private ScriptableRendererFeature GetAmbientOcclusion()
+        {
             var renderer = _pipelineAsset.GetRenderer(0);
             var property = typeof(ScriptableRenderer).GetProperty("rendererFeatures", BindingFlags.NonPublic | BindingFlags.Instance);
             if (property == null)
             {
                 Debug.Log("No property found in renderer");
-                return;
+                return null;
             }
             List<ScriptableRendererFeature> rendererFeatures = property.GetValue(renderer) as List<ScriptableRendererFeature>;
             if (rendererFeatures == null)
             {
                 Debug.Log("No Scriptable Renderer Feature found");
-                return;
+                return null;
             }
 
             foreach (var rf in rendererFeatures)
             {
                 if (rf.name.Equals(_ambientOcclusionRfString))
                 {
-                    _ambientOcclusion = rf;
-                    SetAmbientOcclusionState(state);
-                    break;
+                    return _ambientOcclusion;
+
                 }
             }
+            return null;
         }
 
-        private void UpdateRenderScale(float scaleValue)
-        {
-            if (_pipelineAsset == null) return;
-            _pipelineAsset.renderScale = scaleValue;
-        }
     }
 }
