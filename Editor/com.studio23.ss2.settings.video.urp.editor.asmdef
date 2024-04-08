@@ -1,0 +1,19 @@
+{
+    "name": "com.studio23.ss2.settings.video.urp.editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:7220d42a45aa0fd46b5b0adcfc113789",
+        "GUID:e3d32810cbfa85c4eac3db3dcf20bd97"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
