@@ -1,0 +1,42 @@
+{
+  "name": "com.studio23.ss2.settings.video.urp",
+  "version": "1.0.3",
+  "displayName": "Video Setting - URP",
+  "description": "This is an video setting for URP. Used for in-game display and graphics settings.",
+  "unity": "2022.3",
+  "unityRelease": "14f1",
+  "documentationUrl": "https://studio-23-xyz.github.io/com.studio23.ss2.settings.video.urp/manual/",
+  "changelogUrl": "https://studio-23-xyz.github.io/com.studio23.ss2.settings.video.urp/changelog/CHANGELOG.html",
+  "licensesUrl": "https://studio-23-xyz.github.io/com.studio23.ss2.settings.video.urp/license/LICENSE.html",
+  "scopedRegistries": [
+    {
+      "name": "Studio 23",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "com.studio23.ss2.setings"
+      ]
+    }
+  ],
+  "dependencies": {
+    "com.studio23.ss2.settings.video": "1.0.4",
+	"com.unity.render-pipelines.universal" : "14.0.9"
+  },
+  "samples": [
+    {
+      "displayName": "Example",
+      "description": "A small sample to demonstrate the abilities of the package.",
+      "path": "Samples~/Demo"
+    }
+  ],
+  "keywords": [
+    "URP",
+    "Video",
+    "Display",
+	"Setting"
+  ],
+  "author": {
+    "name": "Studio 23",
+    "email": "contact@studio-23.xyz",
+    "url": "https://studio-23.xyz"
+  }
+}
