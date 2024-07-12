@@ -87,6 +87,7 @@ namespace Studio23.SS2.Settings.Video.URP.Data
             {
                 if (rf.name.Equals(_ambientOcclusionRfString))
                 {
+                    _ambientOcclusion = rf;
                     return _ambientOcclusion;
 
                 }
